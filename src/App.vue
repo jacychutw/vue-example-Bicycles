@@ -1,10 +1,10 @@
 <template>
   <div id="app" class="center">
     <h1>- Bicycle Rental Shop -</h1>
-    <img style="width: 60px" src="@/assets/bicycle-icon.png">
+    <img style="width: 60px" src="@/assets/bicycle-icon.png" />
     <p>Number of bicycles: {{ bicycleNum }}</p>
-    <button @click="plusOne" :disabled="isdisabledPlusFn()">+1</button>&nbsp;
-    <button @click="minusOne" :disabled="isdisabledMinusFn()">-1</button>
+    <button @click="plusOne" :disabled="isdisabledPlusFn">+1</button>&nbsp;
+    <button @click="minusOne" :disabled="isdisabledMinusFn">-1</button>
     <p v-if="condition" style="color: olive">Bikes are available.</p>
     <p v-else style="color: darkred">No bike is available.</p>
     <div>
@@ -14,7 +14,7 @@
         <li v-for="(rule, index) in rules" :key="index">{{ rule }}</li>
       </ol>
     </div>
-    <TotalIncome v-bind:parentMsg="rentNum" @resetAll="resetAllData()"/>
+    <TotalIncome v-bind:parentMsg="rentNum" @resetAll="resetAllData()" />
   </div>
 </template>
 
@@ -29,8 +29,6 @@ export default {
       bicycleNum: 20,
       rentNum: 0,
       hourRentalFee: 100,
-      isDisabledPlus: true,
-      isDisabledMinus: true,
       condition: true,
       rules: [
         "$100 each time.",
@@ -40,32 +38,37 @@ export default {
     };
   },
   computed: {
-    incomeComputed: function () {
-      return this.bicycleNum * this.hourRentalFee;
+    isdisabledPlusFn() {
+      if (this.bicycleNum == 20) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isdisabledMinusFn() {
+      if (this.bicycleNum == 0) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
   methods: {
     plusOne: function () {
       this.bicycleNum = this.bicycleNum + 1;
+      if (this.bicycleNum == 0) {
+        this.condition = false;
+      } else {
+        this.condition = true;
+      }
     },
     minusOne: function () {
       this.bicycleNum = this.bicycleNum - 1;
       this.rentNum += 1;
-    },
-    isdisabledPlusFn: function () {
-      if (this.bicycleNum == 20) {
-        return (this.isDisabledPlus = true);
-      } else {
-        return (this.isDisabledPlus = false);
-      }
-    },
-    isdisabledMinusFn: function () {
       if (this.bicycleNum == 0) {
         this.condition = false;
-        return (this.isDisabledMinus = true);
       } else {
         this.condition = true;
-        return (this.isDisabledMinus = false);
       }
     },
     resetAllData: function () {
