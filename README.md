@@ -14,4 +14,7 @@ npm install
 npm run serve
 ```
 
+[DEMO]
+![bike](https://user-images.githubusercontent.com/85614151/140853006-204f2b25-fec3-4c5e-b1c7-debcb46dccab.png)
+
 🚲 &nbsp; Let's go cycling!
